@@ -1,6 +1,6 @@
 package tr.gov.hmb.survey.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,10 +15,6 @@ import java.util.Date;
 @EntityListeners({AuditingEntityListener.class})
 @Getter
 @Setter
-@JsonIgnoreProperties(
-        value = {"createdAt", "updatedAt", "deleted"},
-        allowGetters = true
-)
 public class BaseEntity implements Serializable {
 
     public static final String SOFT_DELETED_CLAUSE = "deleted = false";
@@ -26,16 +22,20 @@ public class BaseEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
+    @JsonIgnore
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", nullable = false)
     @LastModifiedDate
+    @JsonIgnore
     private Date updatedAt;
 
     @Column(name = "deleted")
+    @JsonIgnore
     private boolean deleted;
 
     @Version
+    @JsonIgnore
     private int version;
 }

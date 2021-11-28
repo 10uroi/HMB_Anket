@@ -1,0 +1,14 @@
+{
+    "app-name": "Anket Uygulaması",
+    "please-answer": "Lütfen Soruları Cevaplayınız",
+    "success-save": "Başarıyla cevaplarınız kayıt edildi.",
+    "bad-token": "Geçerli bir token mevcut değil!",
+    "user-filling": "Katılım Oranı",
+    "user-count": "Katılımcı Sayısı: ",
+    "user-filling-count": "Anket Dolduranların Sayısı: ",
+    "satisfaction-ratio": "Memnuniyet Oranı",
+    "yes-count": "Evet Sayısı: ",
+    "no-count": "Hayır Sayısı: ",
+    "admin-page":"Admin Sayfası İçin Tıklayınız",
+    "main-page":"Anasayfa İçin Tıklayınız"
+}

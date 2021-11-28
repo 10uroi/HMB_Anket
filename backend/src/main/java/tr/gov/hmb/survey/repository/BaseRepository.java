@@ -11,6 +11,7 @@ public interface BaseRepository<T, I> extends CrudRepository<T, I> {
 
     Logger logger = LoggerFactory.getLogger(BaseRepository.class);
 
+    //Soft delete islemi icin bir adet custom repository eklendi. Bu sayede hard delete yasaklandi.
     default void softDelete(T entity) {
         if (entity != null) {
             ((BaseEntity) entity).setDeleted(true);

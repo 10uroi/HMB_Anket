@@ -1,0 +1,7 @@
+{
+    "getFilling":"http://localhost:8080/survey/api/statistics/v1/getFilling",
+    "getAnswer":"http://localhost:8080/survey/api/statistics/v1/getAnswer",
+    "getQuestions":"http://localhost:8080/survey/api/question/v1/getQuestions",
+    "setAnswer":"http://localhost:8080/survey/api/question/v1/setAnswer",
+    "getTokens":"http://localhost:8080/survey/api/user/v1/getTokens"
+}
