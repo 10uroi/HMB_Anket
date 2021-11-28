@@ -1,0 +1,5 @@
+FROM openjdk:8-jdk-alpine
+EXPOSE 8080
+ARG JAR_FILE=./backend/target/survey-0.0.1-SNAPSHOT.war
+ADD ${JAR_FILE} app.war
+ENTRYPOINT ["java","-jar","/app.war"]

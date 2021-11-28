@@ -1,9 +1,5 @@
 package tr.gov.hmb.survey.service;
 
-import org.checkerframework.checker.units.qual.A;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +11,9 @@ import tr.gov.hmb.survey.entity.User;
 import tr.gov.hmb.survey.enums.Answer;
 import tr.gov.hmb.survey.exception.QuestionException;
 import tr.gov.hmb.survey.exception.UserException;
+import tr.gov.hmb.survey.util.LocaleMessage;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -30,6 +29,9 @@ class QuestionServiceTest {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LocaleMessage localeMessage;
 
     @BeforeEach
     void init() throws UserException, QuestionException {

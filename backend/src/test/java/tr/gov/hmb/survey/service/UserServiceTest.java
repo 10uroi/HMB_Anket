@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tr.gov.hmb.survey.entity.User;
 import tr.gov.hmb.survey.exception.UserException;
+import tr.gov.hmb.survey.util.LocaleMessage;
+
+import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +20,10 @@ import static org.junit.Assert.*;
 class UserServiceTest {
 
     public static Long userID = 1L;
+    public static String userToken = "";
+
+    @Autowired
+    private LocaleMessage localeMessage;
 
     @Autowired
     private UserService userService;
@@ -25,7 +33,9 @@ class UserServiceTest {
     void testUserInsert() throws UserException {
         User user = new User();
         user.setUsername("Deneme");
-        user.setToken("48855122");
+        String token = new Random().nextInt(10000000)+"";
+        userToken = token;
+        user.setToken(userToken);
         user = userService.persist(user);
         userID = user.getId();
 
@@ -37,7 +47,7 @@ class UserServiceTest {
         try {
             userService.persist(null);
         } catch (UserException e) {
-            assertEquals(e.getMessage(),"Kullanıcı Bulunamadı!");
+            assertEquals(e.getMessage(),localeMessage.getMessage("user.not.found"));
         }
     }
 
@@ -48,13 +58,31 @@ class UserServiceTest {
         try {
             userService.persist(user);
         } catch (UserException e) {
-            assertEquals(e.getMessage(),"Kullanıcı adı veya token boş olamaz!");
+            assertEquals(e.getMessage(),localeMessage.getMessage("user.username.or.token.empty"));
         }
     }
 
     @Test
     void testGetUser() {
         User user = userService.getUser(userID);
+        assertNotNull(user);
+    }
+
+    @Test
+    void testGetToken() {
+        User user = userService.getUser(userToken);
+        assertNotNull(user);
+    }
+
+    @Test
+    void testGetTokens() {
+        List<String> tokens = userService.getTokens();
+        assertNotNull(tokens);
+    }
+
+    @Test
+    void testGetUserFindByToken() {
+        User user = userService.getUser(userToken);
         assertNotNull(user);
     }
 

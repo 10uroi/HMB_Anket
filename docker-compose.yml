@@ -1,0 +1,54 @@
+version: "3.9"
+services:
+    db:
+        container_name: db
+        image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 123456
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        networks:
+            - spring-cloud-network
+
+    adminer:
+        image: adminer
+        depends_on:
+          - db
+        ports:
+          - 8085:8080
+        networks:
+            - spring-cloud-network
+
+    backend:
+        depends_on:
+          - db
+        container_name: backend
+        build: 
+            context: .
+            dockerfile: Dockerfile-backend
+        image: survey-backend:latest
+        ports:
+            - 8080:8080
+        networks:
+            - spring-cloud-network
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+
+    frontend:
+        depends_on:
+          - backend
+        container_name: frontend
+        build: 
+            context: .
+            dockerfile: Dockerfile-frontend
+        image: survey-frontend:latest
+        ports:
+            - 3000:80
+        networks:
+            - spring-cloud-network
+            
+networks:
+    spring-cloud-network:
+        driver: bridge
